@@ -56,6 +56,5 @@ class TestCalculate:
     @mark.parametrize('a,b,action,error', [(2, 0, "/", ZeroDivisionError),
                                            ("-2", "-2.5", "/", TypeError)])
     def test_errors(self,a,b,action,error):
-        # To check ZeroDivisionError
         with pytest.raises(error):
             assert calculate(a, b, action)
