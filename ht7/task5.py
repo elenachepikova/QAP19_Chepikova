@@ -28,78 +28,34 @@ def calculate(a, b, action):
 
 class TestCalculate:
     @mark.smoke
-    def test01(self):
-        # To check the sum of two positive integers
-        assert calculate(2,5,"+") == 7
-
-    @mark.smoke
-    def test02(self):
-        # To check the subtraction of two positive integers
-        assert calculate(2,5,"-") == -3
-
-    @mark.smoke
-    def test03(self):
-        # To check the multiplication of two positive integers
-        assert calculate(2,5,"*") == 10
-
-    @mark.smoke
-    def test04(self):
-        # To check the division of two positive integers
-        assert calculate(2,5,"/") == 0.4
-
-    @mark.smoke
-    def test05(self):
-        # To check error is shown on attempt to use unsupported action
-        assert calculate(2,5,"asd") == "Invalid action is selected. Use one of the following actions: +, -, *, /."
+    @mark.parametrize('a,b,action,result',[(2, 5, "+", 7),
+                                           (2, 5, "-", -3),
+                                           (2, 5, "*", 10),
+                                           (2, 5, "/", 0.4),
+                                           (2, 5, "asd", "Invalid action is selected. Use one of the following actions: +, -, *, /.")])
+    def test_smoke(self,a,b,action,result):
+        assert calculate(a,b,action) == result
 
     @mark.critical_path
-    def test06(self):
+    @mark.parametrize('a,b,action,result', [(2, 0, "*", 0),
+                                            (2, 2.5, "+", 4.5),
+                                            (-2, -2.5, "+", -4.5),
+                                            (5, -2.5, "+", 2.5)])
+    def test_critical_path(self, a, b, action, result):
+        assert calculate(a, b, action) == result
+
+    @mark.extended
+    @mark.parametrize('a,b,action,result', [(-10, -2, "/", 5.0),
+                                            (-10, -2, "", "Invalid action is selected. Use one of the following actions: +, -, *, /."),
+                                            (10000000000, 2, "+", 10000000002.0),
+                                            (10000000000, 2, "/", 5000000000.0)])
+    def test_extended(self, a, b, action, result):
+        assert calculate(a, b, action) == result
+
+    @mark.extended
+    @mark.parametrize('a,b,action,error', [(2, 0, "/", ZeroDivisionError),
+                                           ("-2", "-2.5", "/", TypeError)])
+    def test_errors(self,a,b,action,error):
         # To check ZeroDivisionError
-        with pytest.raises(ZeroDivisionError):
-            assert calculate(2, 0, "/")
-
-    @mark.critical_path
-    def test07(self):
-        # To check the result of multiplication by 0 is 0
-        assert calculate(2, 0, "*") == 0
-
-    @mark.critical_path
-    def test08(self):
-        # To check the sum of int and float results in float
-        assert calculate(2, 2.5, "+") == 4.5
-
-    @mark.critical_path
-    def test09(self):
-        # To check the sum of two negative numbers is negative
-        assert calculate(-2, -2.5, "+") == -4.5
-
-    @mark.critical_path
-    def test10(self):
-        # To check the addition of a negative number is the same as subtraction
-        assert calculate(5, -2.5, "+") == 2.5
-
-    @mark.extended
-    def test11(self):
-        # To check TypeError
-        with pytest.raises(TypeError):
-            assert calculate("-2", "-2.5", "/")
-
-    @mark.extended
-    def test12(self):
-        # To check the division of two negative numbers results in positive number
-        assert calculate(-10, -2, "/") == 5.0
-
-    @mark.extended
-    def test13(self):
-        # To check error is shown when action is not specified
-        assert calculate(-10, -2, "") == "Invalid action is selected. Use one of the following actions: +, -, *, /."
-
-    @mark.extended
-    def test14(self):
-        # To check the correctness of the sum of small and big numbers
-        assert calculate(10000000000, 2, "+") == 10000000002.0
-
-    @mark.extended
-    def test15(self):
-        # To check the correctness of the division a big number
-        assert calculate(10000000000, 2, "/") == 5000000000.0
+        with pytest.raises(error):
+            assert calculate(a, b, action)

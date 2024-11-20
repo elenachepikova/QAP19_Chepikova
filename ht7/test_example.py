@@ -13,8 +13,7 @@ class TestHT7T1:
     @mark.sorted
     def test_sorted1(self):
         sl1 = sorted([5,8,1])
-        for i in sl1:
-            assert i <= i + 1
+        assert sl1 == [1,5,8]
 
 class TestHT7T2:
 
