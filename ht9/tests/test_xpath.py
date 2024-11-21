@@ -6,7 +6,7 @@ URL = 'https://www.wildberries.by/'
 
 @allure.suite("L20_Locators")
 @allure.sub_suite("XPATH")
-@allure.title("XPATH01_Banner_is_present")
+@allure.title("01_Banner_is_present")
 def test_xpath_1(driver):
     driver.get(URL)
     element = driver.find_element(By.XPATH, '//*[@class="main-page__banner banner"]')
@@ -14,7 +14,7 @@ def test_xpath_1(driver):
 
 @allure.suite("L20_Locators")
 @allure.sub_suite("XPATH")
-@allure.title("XPATH02_Currency_icon_is_present")
+@allure.title("02_Currency_icon_is_present")
 def test_xpath_2(driver):
     driver.get(URL)
     element = driver.find_element(By.XPATH, '//*[@class="simple-menu__currency"]')
@@ -23,7 +23,7 @@ def test_xpath_2(driver):
 
 @allure.suite("L20_Locators")
 @allure.sub_suite("XPATH")
-@allure.title("XPATH03_Navigation_menu_is_present")
+@allure.title("03_Navigation_menu_is_present")
 def test_xpath_3(driver):
     driver.get(URL)
     element = driver.find_element(By.XPATH, '//button[contains(@class,"burger")]')
@@ -31,7 +31,7 @@ def test_xpath_3(driver):
 
 @allure.suite("L20_Locators")
 @allure.sub_suite("XPATH")
-@allure.title("XPATH04_Search_field_is_present")
+@allure.title("04_Search_field_is_present")
 def test_xpath_4(driver):
     driver.get(URL)
     element = driver.find_element(By.XPATH, '//*[@id="searchBlock"]')
@@ -39,7 +39,7 @@ def test_xpath_4(driver):
 
 @allure.suite("L20_Locators")
 @allure.sub_suite("XPATH")
-@allure.title("XPATH05_Site_logo_is_present")
+@allure.title("05_Site_logo_is_present")
 def test_xpath_5(driver):
     driver.get(URL)
     element = driver.find_element(By.XPATH, '//*[contains(@class,"nav-element__logo")]')
@@ -47,7 +47,7 @@ def test_xpath_5(driver):
 
 @allure.suite("L20_Locators")
 @allure.sub_suite("XPATH")
-@allure.title("XPATH06_Cart_is_present")
+@allure.title("06_Cart_is_present")
 def test_xpath_6(driver):
     driver.get(URL)
     element = driver.find_element(By.XPATH, '//*[text()="            Корзина        "]')
