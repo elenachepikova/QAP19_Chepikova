@@ -29,3 +29,7 @@ class Cart(Actions):
         self.assertions.assert_element_is_visible(self.MESSAGE)
         assert self.message.text == 'Your Cart is Empty'
         self.assertions.assert_element_is_visible(self.CONTINUE_SHOPPING_BUTTON)
+
+    @allure.step('Assert Cart sidebar is not displayed')
+    def assert_cart_is_not_displayed(self):
+        assert not self.assertions.assert_element_is_visible(self.TITLE), "Cart sidebar is still visible!"

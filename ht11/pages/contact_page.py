@@ -1,4 +1,5 @@
 import allure
+from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.webdriver import WebDriver
 
 from ht11.core.actions import Actions
@@ -7,6 +8,7 @@ from ht11.data.test_data import DOMAIN, TITLE
 
 
 class ContactPage(Actions):
+    CONTACT_US_BANNER = (By.ID, 'bb-section-51292A57-9603-A922-BC8E-363F9F372AE4')
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -21,5 +23,6 @@ class ContactPage(Actions):
 
     @allure.step('Assert "CONTACT" page is opened')
     def assert_page_is_displayed(self):
-        assert self.driver.current_url == self.page, f"Url should be {self.page}, but is {self.driver.current_url}"
-        assert self.driver.title == self.title
+        self.assertions.assert_page_url(self.page)
+        self.assertions.assert_page_title(self.title)
+        self.assertions.assert_element_is_visible(self.CONTACT_US_BANNER)

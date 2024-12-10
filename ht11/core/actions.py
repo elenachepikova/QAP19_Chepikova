@@ -10,7 +10,7 @@ class Actions:
     def get_element(self, selector):
         return self.driver.find_element(*selector)
 
-    @allure.step('Click_on ${selector}')
+    @allure.step('Click_on {selector}')
     def click_on(self, selector, force=False):
         element = self.get_element(selector)
         if force:
@@ -19,7 +19,7 @@ class Actions:
             element.click()
 
     @allure.step('Fill in the field with {text}')
-    def add_text(self, text, selector):
+    def send_text(self, text, selector):
         field = self.get_element(selector)
         field.send_keys(text)
         assert field.get_attribute("value") == text

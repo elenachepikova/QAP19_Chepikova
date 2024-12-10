@@ -1,6 +1,5 @@
 import allure
 
-from ht11.elements.cart import Cart
 from ht11.elements.footer import Footer
 from ht11.elements.header import NavigationPanel
 from ht11.pages.home_page import HomePage
@@ -24,13 +23,3 @@ class TestHomePage:
         homepage.assert_sections_are_present()
         footer = Footer(driver)
         footer.assert_footer_is_displayed()
-
-    @allure.title("Verify CART sidebar can be opened via 'HOME' page")
-    def test_open_empty_cart(self, driver):
-        homepage = HomePage(driver)
-        homepage.open()
-        header = NavigationPanel(driver)
-        header.click_on(header.CART)
-        cart = Cart(driver)
-        cart.assert_empty_cart_is_displayed()
-        cart.click_on(cart.CLOSE_ICON)

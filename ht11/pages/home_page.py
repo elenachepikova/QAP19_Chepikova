@@ -25,8 +25,9 @@ class HomePage(Actions):
 
     @allure.step('Assert "Home page" is opened')
     def assert_page_is_displayed(self):
-        assert self.driver.current_url == self.page, f"Url should be {self.page}, but is {self.driver.current_url}"
-        assert self.driver.title == self.title
+        self.assertions.assert_page_url(self.page)
+        self.assertions.assert_page_title(self.title)
+        self.assert_sections_are_present()
 
     @allure.step('Assert "HOME" page elements are present')
     def assert_sections_are_present(self):

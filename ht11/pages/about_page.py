@@ -8,6 +8,7 @@ from ht11.data.test_data import DOMAIN, TITLE
 
 
 class AboutPage(Actions):
+    ABOUT_US_BANNER = (By.ID, 'bb-section-5129237E-F62C-D51F-8FF0-2BFF121EE5F7')
     CONTACT_US = (By.XPATH, '//button[contains(text(),"CONTACT US")]')
     SHOP_NOW = (By.CSS_SELECTOR, 'button.btn-secondary')
 
@@ -24,5 +25,7 @@ class AboutPage(Actions):
 
     @allure.step('Assert "About" page is opened')
     def assert_page_is_displayed(self):
-        assert self.driver.current_url == self.page, f"Url should be {self.page}, but is {self.driver.current_url}"
-        assert self.driver.title == self.title
+        self.assertions.assert_page_url(self.page)
+        self.assertions.assert_page_title(self.title)
+        self.assertions.assert_element_is_visible(self.ABOUT_US_BANNER)
+
