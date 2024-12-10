@@ -18,8 +18,8 @@ class Actions:
         else:
             element.click()
 
-    @allure.step('Fill in the field with ${text}')
-    def add_text(self, text, selector):
+    @allure.step('Fill in the field with {text}')
+    def send_text(self, text, selector):
         field = self.get_element(selector)
         field.send_keys(text)
         assert field.get_attribute("value") == text
@@ -29,4 +29,3 @@ class Actions:
         field = self.get_element(selector)
         field.clear()
         assert field.get_attribute("value") == ''
-

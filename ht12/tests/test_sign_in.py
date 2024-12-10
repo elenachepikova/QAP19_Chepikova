@@ -1,4 +1,4 @@
-from ht12.pages.explore_all_deals_page import ExploreAllDeals
+from ht12.pages.explore_all_deals_page import ExploreAllDealsPage
 from ht12.pages.home_page import HomePage
 from ht12.pages.sign_in_page import SignInPage
 
@@ -17,7 +17,7 @@ class TestSignIn:
         homepage.open()
         homepage.click_sign_in()
         sign_in_page = SignInPage(driver)
-        sign_in_page.sign_in_with_email()
+        sign_in_page.click_on_sign_in_button()
         sign_in_page.assert_page_is_displayed()
         sign_in_page.assert_error_is_displayed()
 
@@ -26,8 +26,6 @@ class TestSignIn:
         homepage.open()
         homepage.click_sign_in()
         sign_in_page = SignInPage(driver)
-        sign_in_page.enter_user_email()
-        sign_in_page.enter_password()
         sign_in_page.sign_in_with_email()
-        explore_all_deals = ExploreAllDeals(driver)
+        explore_all_deals = ExploreAllDealsPage(driver)
         explore_all_deals.assert_page_is_displayed()

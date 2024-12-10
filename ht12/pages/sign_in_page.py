@@ -23,6 +23,7 @@ class SignInPage(Actions):
         super().__init__(driver)
         self.driver: WebDriver = driver
         self.page = f'{DOMAIN}users/sign_in'
+        self.title = 'BookBub - Sign in'
         self.email = TEST_EMAIL
         self.password = TEST_PASSWORD
         self.assertions = Assertions(self.driver)
@@ -30,19 +31,28 @@ class SignInPage(Actions):
     @allure.step('Assert "Sign In" page is opened')
     def assert_page_is_displayed(self):
         assert self.driver.current_url == self.page, f"Url should be {self.page}, but is {self.driver.current_url}"
-        assert self.driver.title == 'BookBub - Sign in'
+        self.assertions.assert_page_title(self.title)
+        self.assertions.assert_element_is_visible(self.EMAIL_FIELD)
+        self.assertions.assert_element_is_visible(self.PASSWORD_FIELD)
+        self.assertions.assert_element_is_visible(self.SIGN_IN_WITH_EMAIL_BUTTON)
 
     @allure.step('Fill in "Email" field')
     def enter_user_email(self):
-        self.add_text(self.email, self.EMAIL_FIELD)
+        self.send_text(self.email, self.EMAIL_FIELD)
 
     @allure.step('Fill in "Password" field')
     def enter_password(self):
-        self.add_text(self.password, self.PASSWORD_FIELD)
+        self.send_text(self.password, self.PASSWORD_FIELD)
 
     @allure.step('Click on "Sign in with email" button')
-    def sign_in_with_email(self):
+    def click_on_sign_in_button(self):
         self.click_on(self.SIGN_IN_WITH_EMAIL_BUTTON)
+
+    @allure.step('Enter credentials and click on "Sign in with email" button')
+    def sign_in_with_email(self):
+        self.enter_user_email()
+        self.enter_password()
+        self.click_on_sign_in_button()
 
     @allure.step('Assert error message is displayed on "Sign In" page')
     def assert_error_is_displayed(self):
@@ -51,12 +61,12 @@ class SignInPage(Actions):
 
     @allure.step('Assert presence of "Sign In" page elements')
     def assert_elements_are_present(self):
-        self.assertions.assert_element_is_visible(self.EMAIL_FIELD)
-        self.assertions.assert_element_is_visible(self.PASSWORD_FIELD)
+        self.assertions.assert_element_is_displayed(self.EMAIL_FIELD)
+        self.assertions.assert_element_is_displayed(self.PASSWORD_FIELD)
         self.assertions.assert_element_is_selected(self.STAY_SIGNED_IN_CHECKBOX)
-        self.assertions.assert_element_is_visible(self.PASSWORD_TROUBLE_LINK)
-        self.assertions.assert_element_is_visible(self.SIGN_IN_WITH_EMAIL_BUTTON)
-        self.assertions.assert_element_is_visible(self.CONTINUE_WITH_GOOGLE)
-        self.assertions.assert_element_is_visible(self.MAGIC_LINK_EMAIL_FIELD)
-        self.assertions.assert_element_is_visible(self.MAGIC_LINK_BUTTON)
-        self.assertions.assert_element_is_visible(self.SIGN_UP_LINK)
+        self.assertions.assert_element_is_displayed(self.PASSWORD_TROUBLE_LINK)
+        self.assertions.assert_element_is_displayed(self.SIGN_IN_WITH_EMAIL_BUTTON)
+        self.assertions.assert_element_is_displayed(self.CONTINUE_WITH_GOOGLE)
+        self.assertions.assert_element_is_displayed(self.MAGIC_LINK_EMAIL_FIELD)
+        self.assertions.assert_element_is_displayed(self.MAGIC_LINK_BUTTON)
+        self.assertions.assert_element_is_displayed(self.SIGN_UP_LINK)
